@@ -10,9 +10,9 @@
 
 #endif //TICTACTOE_FUNCTIONS_H
 
-bool checkIfLegal (int cellNbre, char board[]);
-bool checkWinner (char board[]);
-void playerMove(char board[]);
-void displayBoard (char board[]);
-void greetAndInstruct();
-void computerMove(char board[]);
+bool verificarSiLegal (int cellNbre, char tablero[]);
+bool verificarGanador (char tablero[]);
+void movimientoJugadorUno(char tablero[]);
+void mostrarTablero (char tablero[]);
+void saludarEInstruir();
+void movimientoJugadorDos(char tablero[]);

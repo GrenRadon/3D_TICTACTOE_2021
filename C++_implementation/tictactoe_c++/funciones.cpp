@@ -1,14 +1,14 @@
-#include "functions.h"
+#include "funciones.h"
 using namespace std;
 
-bool checkIfLegal (int cellNbre, char board[]) {
-    return (cellNbre > 0 && cellNbre < 28 && board[cellNbre-1]!='X' && board[cellNbre-1]!='O');
+bool verificarSiLegal (int cellNbre, char tablero[]) {
+    return (cellNbre > 0 && cellNbre < 28 && tablero[cellNbre-1]!='X' && tablero[cellNbre-1]!='O');
 }
 
-void displaySpaces (int a, int b, char board[]) {
+void mostrarEspacios (int a, int b, char tablero[]) {
     //Display X or O, otherwise cell number
     for (int i = a; i <= b; i++) {
-        switch (board[i - 1]) {
+        switch (tablero[i - 1]) {
             case 'X':
                 cout << 'X';
                 break;
@@ -24,13 +24,13 @@ void displaySpaces (int a, int b, char board[]) {
     }
 }
 
-char checkRow (char board[]) {
+char verificarFila (char tablero[]) {
     //Check rows like 1-2-3
     for (int i = 0; i <=24; i+=3) {
         int player = 0;
         int cpu = 0;
         for (int j=i; j<i+3; j++) {
-            switch (board[j]) {
+            switch (tablero[j]) {
                 case 'X':
                     player++;
                     break;
@@ -46,14 +46,14 @@ char checkRow (char board[]) {
     return 'n';
 }
 
-char checkColumn (char board[]) {
+char verificarColumna (char tablero[]) {
     //Check columns like 1-4-7
     for (int i=0; i<=18; i+=9) {
         for (int j = i; j < i + 3; j++) {
             int player = 0;
             int cpu = 0;
             for (int k=j; k<=j+6; k+=3) {
-                switch (board[k]) {
+                switch (tablero[k]) {
                     case 'X':
                         player++;
                         break;
@@ -70,13 +70,13 @@ char checkColumn (char board[]) {
     return 'n';
 }
 
-char checkDiagonal (char board[]) {
+char verificarDiagonal (char tablero[]) {
     //Check rightward diagonals, e.g. 1-5-9
     for (int i = 0; i <= 18; i += 9) {
         int player = 0;
         int cpu = 0;
         for (int j = i; j <= i + 8; j += 4) {
-            switch (board[j]) {
+            switch (tablero[j]) {
                 case 'X':
                     player++;
                     break;
@@ -94,7 +94,7 @@ char checkDiagonal (char board[]) {
         int player = 0;
         int cpu = 0;
         for (int j = i; j <= i + 4; j += 2) {
-            switch (board[j]) {
+            switch (tablero[j]) {
                 case 'X':
                     player++;
                     break;
@@ -110,13 +110,13 @@ char checkDiagonal (char board[]) {
     return 'n';
 }
 
-char checkAdjacent (char board[]) {
+char verificarAdyacente (char tablero[]) {
     //Check for patterns like 1-9-19 (same cell on each board)
     for (int i = 0; i < 9; i++) {
         int player = 0;
         int cpu = 0;
         for (int j = i; j <= i + 18; j += 9) {
-            switch (board[j]) {
+            switch (tablero[j]) {
                 case 'X':
                     player++;
                     break;
@@ -132,13 +132,13 @@ char checkAdjacent (char board[]) {
     return 'n';
 }
 
-char checkSkewLines (char board[]) {
+char verificarLineasOblicuas (char tablero[]) {
     //Check for patterns like 1-11-21 (row across all 3 boards)
     for (int i=0; i<=6; i+=3) {
         int player=0;
         int cpu=0;
         for (int j=i; j<=i+20; j+=10) {
-            switch (board[j]) {
+            switch (tablero[j]) {
                 case 'X':
                     player++;
                     break;
@@ -156,7 +156,7 @@ char checkSkewLines (char board[]) {
         int player=0;
         int cpu=0;
         for (int j=i; j<=i+24; j+=12) {
-            switch (board[j]) {
+            switch (tablero[j]) {
                 case 'X':
                     player++;
                     break;
@@ -170,48 +170,48 @@ char checkSkewLines (char board[]) {
             return 'c';
     }
     //Check for patterns 1-14-27 and 3-14-25
-    if (board[0]=='X' && board[13]=='X' && board[26]=='X')
+    if (tablero[0]=='X' && tablero[13]=='X' && tablero[26]=='X')
         return 'p';
-    if (board[0]=='O' && board[13]=='O' && board[26]=='O')
+    if (tablero[0]=='O' && tablero[13]=='O' && tablero[26]=='O')
         return 'c';
-    if (board[2]=='X' && board[13]=='X' && board[24]=='X')
+    if (tablero[2]=='X' && tablero[13]=='X' && tablero[24]=='X')
         return 'p';
-    if (board[2]=='O' && board[13]=='O' && board[24]=='O')
+    if (tablero[2]=='O' && tablero[13]=='O' && tablero[24]=='O')
         return 'c';
     return 'n';
 }
 
-bool checkWinner (char board[]) {
+bool verificarGanador (char tablero[]) {
     //Check each row
-    switch (checkRow(board)) {
+    switch (verificarFila(tablero)) {
         case 'p':
             return true;
         case 'c':
             return true;
     }
     //Check each column
-    switch (checkColumn(board)) {
+    switch (verificarColumna(tablero)) {
         case 'p':
             return true;
         case 'c':
             return true;
     }
     //Check each diagonal
-    switch (checkDiagonal(board)) {
+    switch (verificarDiagonal(tablero)) {
         case 'p':
             return true;
         case 'c':
             return true;
     }
     //Check each adjacent pattern e.g. 1-10-19
-    switch (checkAdjacent(board)) {
+    switch (verificarAdyacente(tablero)) {
         case 'p':
             return true;
         case 'c':
             return true;
     }
     //Check each skew line e.g. 1-11-21, 1-13-25, 1-14-27, 3-14-25
-    switch (checkSkewLines(board)) {
+    switch (verificarLineasOblicuas(tablero)) {
         case 'p':
             return true;
         case 'c':
@@ -220,87 +220,86 @@ bool checkWinner (char board[]) {
     return false;
 }
 
-void playerMove(char board[]) {
+void movimientoJugadorUno(char tablero[]) {
     int m=1;
     while(true) {
         cout << "Type a cell number: ";
         cin >> m;
-        if (checkIfLegal(m, board))
+        if (verificarSiLegal(m, tablero))
             break;
         cout << "Illegal move." << endl;
     }
-        board[m - 1] = 'X';
+        tablero[m - 1] = 'X';
 }
 
-void displayBoard (char board[]) {
-    displaySpaces(1, 3, board);
+void mostrarTablero (char tablero[]) {
+    mostrarEspacios(1, 3, tablero);
     cout << "      ";
-    displaySpaces(10, 12, board);
+    mostrarEspacios(10, 12, tablero);
     cout << "      ";
-    displaySpaces(19, 21, board);
+    mostrarEspacios(19, 21, tablero);
     cout << endl << "---------------------------------------" << endl;
-    displaySpaces(4, 6, board);
+    mostrarEspacios(4, 6, tablero);
     cout << "      ";
-    displaySpaces(13, 15, board);
+    mostrarEspacios(13, 15, tablero);
     cout << "      ";
-    displaySpaces(22, 24, board);
+    mostrarEspacios(22, 24, tablero);
     cout << "      ";
     cout << endl << "---------------------------------------" << endl;
-    displaySpaces(7, 9, board);
+    mostrarEspacios(7, 9, tablero);
     cout << "      ";
-    displaySpaces(16, 18, board);
+    mostrarEspacios(16, 18, tablero);
     cout << "      ";
-    displaySpaces(25, 27, board);
+    mostrarEspacios(25, 27, tablero);
     cout << "      ";
 }
 
 
-void greetAndInstruct() {
-    cout << "Hello and welcome to the Tic-Tac-Toe challenge: Player against Computer." << endl;
-    cout << "The board is numbered from 1 to 27 as per the following:" << endl;
+void saludarEInstruir() {
+    cout << "Buenos dias, bienvenido al reto Tic-Tac-Toe: Jugador 1 vs Jugador 2" << endl;
+    cout << "El tablero está enumerado desde 1 hasta 27 como se puede observar a continuacion:" << endl;
     cout << "1 | 2 | 3      10 | 11 | 12      19 | 20 | 21" << endl;
     cout << "---------      ------------      ------------" << endl;
     cout << "4 | 5 | 6      13 | 14 | 15      22 | 23 | 24" << endl;
     cout << "---------      ------------      ------------" << endl;
     cout << "7 | 8 | 9      16 | 17 | 19      25 | 26 | 27" << endl;
-    cout
-            << "Player starts first. Simply input the number of the cell you want to occupy. Player’s move is marked with X. Computer’s move is marked with O."
-            << endl;
+    cout<< "\nJugador 1 va primero, luego el jugador dos hasta que haya un ganador." <<endl;
+    cout<<"Simply input the number of the cell you want to occupy. Player’s move is marked with X. Computer’s move is marked with O."<< endl;
     cout << "Start? (y/n):";
     char ans;
     cin >> ans;
-    char board[27];
+    char tablero[27];
     if (ans == 'y')
-        displayBoard(board);
+        mostrarTablero(tablero);
     else
         exit(0);
 }
 
-void computerMove(char board[]) {
+void movimientoJugadorDos(char tablero[]) {
     char test[27];
     for (int i = 0; i < 27; i++) {
         //Protect original board by copying it into another array
-        copy(board, board+27, test);
+        copy(tablero, tablero+27, test);
         //Check if each move is legal using the test array, then commit if that cell is a win condition
-        if (checkIfLegal(i+1, test)) {
+        if (verificarSiLegal(i+1, test)) {
             //Check for computer's win condition
             test[i]='O';
-            if (checkWinner(test)) {
-                board[i] = 'O';
+            if (verificarGanador(test)) {
+                tablero[i] = 'O';
                 return;
             }
             //Check for player's win condition
             test[i]='X';
-            if (checkWinner(test)) {
-                board[i]='O';
+            if (verificarGanador(test)) {
+                tablero[i]='O';
                 return;
             }
         }
     }
     //If no cell is a win condition, make a random move
     for (int i=0; i<27; i++) {
-        if (checkIfLegal(i+1, board)) {
-            board[i] = 'O';
+        if (verificarSiLegal(i+1, tablero)) {
+            tablero[i] = 'O';
             return;
         }
     }
