@@ -14,6 +14,8 @@ int main() {
             cout << endl << "Jugador1 gana.";
             break;
         }
+        mostrarTablero(tablero);
+        cout<<endl;
         movimientoJugadorDos(tablero);
         if (verificarGanador(tablero)) {
             mostrarTablero(tablero);

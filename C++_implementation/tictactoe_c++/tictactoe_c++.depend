@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1628459215 source:/home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/funciones.cpp
+1628467231 source:/home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/funciones.cpp
 	"funciones.h"
 
 1628459273 /home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/funciones.h
@@ -9,6 +9,6 @@
 	<string>
 	<cstring>
 
-1628459241 source:/home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/main.cpp
+1628467170 source:/home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/main.cpp
 	"funciones.h"
 
