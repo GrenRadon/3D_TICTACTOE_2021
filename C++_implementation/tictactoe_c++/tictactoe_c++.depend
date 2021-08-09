@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1628483494 source:/home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/funciones.cpp
+	"funciones.h"
+
+1628459273 /home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/funciones.h
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<string>
+	<cstring>
+
+1628467479 source:/home/julian/Escritorio/Probando/3D_TICTACTOE_2021/C++_implementation/tictactoe_c++/main.cpp
+	"funciones.h"
+

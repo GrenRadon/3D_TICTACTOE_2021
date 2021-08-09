@@ -1,25 +1,28 @@
-#include "functions.h"
+#include "funciones.h"
+
 using namespace std;
 
 int main() {
-    char board[27];
+    char tablero[27];
     srand(time(NULL));
-    greetAndInstruct();
+    saludarEInstruir();
     cout << endl;
     while (true) {
-        playerMove(board);
-        if (checkWinner(board)) {
-            displayBoard(board);
-            cout << endl << "Player won.";
+        movimientoJugadorUno(tablero);
+        if (verificarGanador(tablero)) {
+            mostrarTablero(tablero);
+            cout << endl << "Jugador1 gana.";
             break;
         }
-        computerMove(board);
-        if (checkWinner(board)) {
-            displayBoard(board);
-            cout << endl << "Player lost.";
+        mostrarTablero(tablero);
+        cout<<endl;
+        movimientoJugadorDos(tablero);
+        if (verificarGanador(tablero)) {
+            mostrarTablero(tablero);
+            cout << endl << "Jugador2 gana(computadora).";
             break;
         }
-        displayBoard(board);
+        mostrarTablero(tablero);
         cout << endl << endl;
     }
     return 0;
