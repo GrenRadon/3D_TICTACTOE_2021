@@ -1,100 +1,81 @@
 import numpy as np
-
+from colorama import Fore
+from colorama import Style
 
 def verificarFila (tablero):
     ##Verificar las filas como e.g 1-2-3
-    for i in range(0,25):
+    for i in range(0,25,3):
         jugadoruno = 0
         cpu = 0
         for j in range(i,i+3):
-            if(tablero[j]=="X"):
+            if(tablero[j]=='X'):
                 jugadoruno+=1
-                break;
-            elif(tablero[j]=='O'):
+            if(tablero[j]=='O'):
                 cpu+=1
         if (jugadoruno==3):
             return 'p'
         if (cpu==3):
             return 'c'
-        i+=3
     return 'n'
 
 def verificarColumna (tablero):
     ##Verificar las columnas e.g 1-4-7
-    for i in range(0,19):
-
+    for i in range(0,19,9):
         for j in range(i,i+3):
             jugadoruno = 0
             cpu = 0
-            for k in range(j,j+7):
-
+            for k in range(j,j+7,3):
                 if(tablero[k]=='X'):
                     jugadoruno+=1
-                    break;
-                elif(tablero[k]=='O'):
+                if(tablero[k]=='O'):
                     cpu+=1
-                k+=3
-
             if(jugadoruno==3):
                 return 'p'
             if(cpu == 3):
                 return 'c'
-        i+=9
     return 'n'
 
 def verificarDiagonal (tablero):
     ##Verificar las diagonales hacia la derecha, e.g. 1-5-9
-    for i in range(0,19):
-
+    for i in range(0,19,9):
         jugadoruno = 0
         cpu = 0
-        for j in range(i,i+9):
-
+        for j in range(i,i+9,4):
             if(tablero[j]=='X'):
                 jugadoruno+=1
-                break;
             if(tablero[j]=='O'):
                 cpu+=1
-            j+=4
         if (jugadoruno == 3):
             return 'p'
         if (cpu == 3):
             return 'c'
-        i+=9
+
     ##Verificar las diagonales hacia la izquierda, e.g. 3-5-7
-    for i in range(2,21):
-
+    for i in range(2,21,9):
         jugadoruno = 0
-        cpu = 0;
-        for j in range(i,i+5):
-
+        cpu = 0
+        for j in range(i,i+5,2):
             if(tablero[j]=='X'):
                 jugadoruno+=1
-                break;
-            elif(tablero[j]=='O'):
+            if(tablero[j]=='O'):
                 cpu+=1
-            j+=2
         if (jugadoruno == 3):
             return 'p'
         if (cpu == 3):
             return 'c'
-        i+=9
     return 'n'
 
 
 def verificarAdyacente (tablero):
-    ##Verificar patrones como 1-9-19 (igual celda en cada tablero)
+    ##Verificar patrones como 1-10-19 (igual celda en cada tablero)
     for i in range(0,9):
         jugadoruno = 0
         cpu = 0
-        for j in range(i,i+19):
-
+        for j in range(i,i+19,9):
             if(tablero[j]=='X'):
                 jugadoruno+=1
-                break;
-            elif(tablero[j]=='O'):
+            if(tablero[j]=='O'):
                 cpu+=1
-            j+=9
         if (jugadoruno == 3):
             return 'p'
         if (cpu == 3):
@@ -104,38 +85,27 @@ def verificarAdyacente (tablero):
 
 def verificarLineasOblicuas (tablero):
     ##Verificar patrones como 1-11-21 (fila en las 3 tablas)
-    for i in range(0,7):
-
+    for i in range(0,7,3):
         jugadoruno=0
         cpu=0
-        for j in range(i,i+21):
-
+        for j in range(i,i+21,10):
             if(tablero[j]=='X'):
                 jugadoruno+=1
-                break;
-            elif(tablero[j]=='O'):
+            if(tablero[j]=='O'):
                 cpu+=1
-            j+=10
-
         if (jugadoruno==3):
             return 'p'
         if (cpu==3):
             return 'c'
-        i+=3
     ##Verificar patrones como 1-13-25 (columna en las 3 tablas)
-
     for i in range(0,3):
         jugadoruno=0
         cpu=0
-        for j in range(i,i+25):
-
+        for j in range(i,i+25,12):
             if(tablero[j]=='X'):
                 jugadoruno+=1
-                break;
-            elif(tablero[j]=='O'):
+            if(tablero[j]=='O'):
                 cpu+=1
-            j+=12
-
         if (jugadoruno==3):
             return 'p'
         if (cpu==3):
@@ -182,7 +152,7 @@ def verificarGanador(tablero):
 
 
 def verificarSiLegal (cellNbre, tablero):
-    if(cellNbre > 0 and cellNbre < 28 and tablero[cellNbre-1]!="X" and tablero[cellNbre-1]!="O"):
+    if(cellNbre > 0 and cellNbre < 28 and tablero[cellNbre-1]!='X' and tablero[cellNbre-1]!='O'):
         return True
     else:
         False
@@ -209,27 +179,24 @@ def movimientoJugadorDos(tablero):
 
     tablero[m - 1] = 'O'
 
-
 def mostrarEspacios (a, b, tablero):
     #Mostrar X o O, En caso contrario, el número de celda
     for i in range(a,b+1):
+
         if(tablero[i - 1]== 'X'):
-            print("033[1;31mX\033[0m", end ="")
-            break;
+            print(f"{Fore.RED}X{Style.RESET_ALL}", end ="")
         elif(tablero[i - 1]== 'O'):
-            print("\033[1;34mO\033[0m", end ="")
+            print(f"{Fore.BLUE}O{Style.RESET_ALL}", end ="")
+        elif(i==b):
+            print(i, end ="")
             break;
         else:
             print(i, end ="")
-        if (i==b):
-            break;
         if(i%3 != 0):
             print(" | ", end ="")
         if(i%3 == 0):
-            print("")
-            print("--------------")
-        print(" ", end ="")
-
+            print("\n-----------")
+        print("", end ="")
 
 def mostrarTablero(tablero):
     mostrarEspacios(1, 9, tablero)
@@ -238,8 +205,6 @@ def mostrarTablero(tablero):
     print("\n\n\n",end =" ")
     mostrarEspacios(19, 27, tablero)
     print("\n\n\n",end =" ")
-
-
 
 def saludarEInstruir():
     print("Buenos dias, bienvenido al reto Tres en linea: Jugador 1 vs Jugador 2")
@@ -250,20 +215,19 @@ def saludarEInstruir():
     print("---------      ------------      ------------")
     print("7 | 8 | 9      16 | 17 | 19      25 | 26 | 27")
     print("\nJugador 1 va primero, luego el jugador dos hasta que haya un ganador.")
-    print("Simplemente debe ingresar el número de la celda la cual desea ocupar. Movimientos del jugaodr uno son marcados con 'X'. Movimientos del jugador dos son marcados con 'O'.")
+    print("Simplemente debe ingresar el número de la celda la cual desea ocupar. Movimientos del jugador uno son marcados con 'X'. Movimientos del jugador dos son marcados con 'O'.")
     print("Desea iniciar? (s/n):")
-    ans = input ("Enter number :")
-    tablero=np.chararray(shape=(27))
+    ans = input ("Digite respuesta :")
+    tablero=np.chararray(shape=(27),unicode=True)
+    print(" ")
+
     if (ans == "s"):
         mostrarTablero(tablero);
     else:
         exit()
 
-
-
-
 def main():
-    tablero=np.chararray(shape=(27))
+    tablero=np.chararray(shape=(27),unicode=True)
     saludarEInstruir()
     print(" ")
     while (True):
@@ -285,6 +249,7 @@ def main():
         mostrarTablero(tablero);
         print(" ")
         print(" ")
+    input('Press ENTER to exit')
 
 if __name__ == "__main__":
     main()
